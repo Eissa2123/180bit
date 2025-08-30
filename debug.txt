@@ -1,0 +1,33 @@
+Array
+(
+    [Customer] => 16
+    [AT] => 2025-08-10
+    [Products] => Array
+        (
+            [0] => Array
+                (
+                    [ID] => 13
+                    [Name] => Logo
+                    [Description] => 
+                    [Price] => 5
+                    [Quantity] => 1
+                )
+
+        )
+
+    [TVA] => 15
+    [Tax] => 0.75
+    [Cobon] => 39
+    [Gift] => 0.00
+    [Reduction] => 0.00
+    [Expense] => 0.00
+    [HT] => 5.00
+    [TTC] => 5.75
+    [PaidMonetary] => 5
+    [PaidOnline] => 0.00
+    [Paid] => 5.00
+    [Rest] => 0.75
+    [Terms] => 1
+    [notes] => 
+    [btn_add] => 
+)

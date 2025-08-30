@@ -1,0 +1,15 @@
+@charset "UTF-8";
+.sidebar-container {
+  width: 220px;
+  float: right;
+  background-color: #f8f8f8;
+  height: 100vh;
+  padding: 15px;
+  box-shadow: -1px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.container2 {
+  margin-right: 230px; /* حتى يترك فراغ للسايد بار */
+}
+
+/*# sourceMappingURL=sidebar.css.map */

@@ -1,0 +1,94 @@
+@charset "UTF-8";
+/* === Dropdown styled like .custom-text-field === */
+.custom-dropdown {
+  position: relative;
+  margin-bottom: 5px;
+  /* أيقونة السهم داخل الحقل مثل .input-icon */
+}
+.custom-dropdown .dropdown-label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+.custom-dropdown .dropdown-selected {
+  position: relative;
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  font-size: 12px;
+  background: #fff;
+  line-height: 1.2;
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  padding-inline-end: 2.5rem;
+}
+.custom-dropdown:focus-within .dropdown-selected, .custom-dropdown.is-open .dropdown-selected, .custom-dropdown.open .dropdown-selected {
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.08);
+}
+.custom-dropdown .dropdown-icon {
+  position: absolute;
+  inset-inline-end: 12px; /* يدعم RTL/LTR */
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  fill: var(--color-border);
+  pointer-events: none;
+}
+.custom-dropdown .dropdown-menu {
+  display: none;
+  position: absolute;
+  inset-inline: 0;
+  top: calc(100% + 6px);
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: 5px;
+  box-shadow: var(--shadow, 0 10px 25px rgba(0, 0, 0, 0.06));
+  z-index: 1000;
+  max-height: 280px;
+  overflow: auto;
+}
+.custom-dropdown.is-open .dropdown-menu, .custom-dropdown.open .dropdown-menu {
+  display: block;
+}
+.custom-dropdown .dropdown-search {
+  width: 100%;
+  padding: 12px 14px;
+  border: none;
+  border-bottom: 1px solid var(--color-border);
+  font-size: 12px;
+  outline: 0;
+  box-sizing: border-box;
+}
+.custom-dropdown .dropdown-options {
+  max-height: 220px;
+  overflow-y: auto;
+}
+.custom-dropdown .dropdown-option {
+  padding: 10px 14px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.custom-dropdown .dropdown-option:hover {
+  background: #f9fafb;
+}
+.custom-dropdown .dropdown-option.selected {
+  background: #f3f4f6;
+  font-weight: 600;
+}
+.custom-dropdown.rtl {
+  direction: rtl;
+}
+.custom-dropdown.rtl .dropdown-selected {
+  padding-inline-start: 15px;
+  padding-inline-end: 2.5rem;
+}
+
+.custom-dropdown.is-open {
+  z-index: 1100;
+}
+
+/*# sourceMappingURL=dropdown.css.map */

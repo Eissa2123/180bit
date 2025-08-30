@@ -1,0 +1,285 @@
+@charset "UTF-8";
+.page-wrapper {
+  --accent: #0ea5e9;
+  --accent-600: #0284c7;
+  /* ===== Header & breadcrumbs ===== */
+  /* ===== GRID ===== */
+  /* ===== ACCORDION ===== */
+  /* ===== FIELDSET ===== */
+  /* ===== INPUT GROUP ===== */
+  /* ===== CHOICES (Radio / Checkbox) ===== */
+  /* ===== FILE ===== */
+  /* ===== FORM ACTIONS ===== */
+  /* ===== Responsive ===== */
+}
+.page-wrapper .alert {
+  border-radius: 12px;
+  padding: 10px 12px;
+  margin-block: 8px 16px;
+}
+.page-wrapper .alert--success {
+  background: rgba(16, 185, 129, 0.12);
+  color: #10b981;
+  border: 1px solid rgba(16, 185, 129, 0.35);
+}
+.page-wrapper .c-form {
+  background: transparent;
+}
+.page-wrapper .grid {
+  display: grid;
+  gap: var(--gap);
+}
+.page-wrapper .grid.grid--3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: start;
+}
+.page-wrapper .grid > details.acc {
+  align-self: start;
+}
+.page-wrapper .acc {
+  padding: 10px;
+  background: var(--card);
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+.page-wrapper .acc__header {
+  list-style: none;
+  cursor: pointer;
+  padding: 12px 16px;
+  /* اترك مساحة للسهم على جهة البداية (RTL = يمين) */
+  padding-inline-start: 44px;
+  position: relative;
+  /* يضمن محاذاة السهم والنص عموديًا */
+  display: flex;
+  align-items: center;
+}
+.page-wrapper .acc__header::-webkit-details-marker {
+  display: none;
+}
+.page-wrapper .acc__header::after {
+  content: "";
+  position: absolute;
+  inset-inline-start: 16px; /* مكان السهم */
+  inset-block-start: 50%; /* منتصف الارتفاع */
+  width: 10px;
+  height: 10px;
+  border-inline-end: 2px solid var(--muted);
+  border-block-end: 2px solid var(--muted);
+  transform: translateY(-50%) rotate(-45deg);
+  transition: transform 0.2s ease;
+  pointer-events: none; /* لا يعطّل النقر على الـsummary */
+}
+.page-wrapper .acc[open] .page-wrapper .acc__header::after {
+  transform: translateY(-50%) rotate(45deg);
+}
+.page-wrapper .acc__body {
+  padding: 12px 16px 16px;
+  display: grid;
+  gap: 14px;
+  background: #fafafa;
+}
+.page-wrapper .fs {
+  border: 0;
+  padding: 5px;
+  margin: 0;
+  display: grid;
+  gap: 10px;
+}
+.page-wrapper .fs legend {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+.page-wrapper .input-group {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  gap: 8px;
+}
+.page-wrapper .input-group .input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  background: #fff;
+  font-size: 14px;
+  color: #1f2937;
+  transition: box-shadow 0.15s ease, border-color 0.15s ease;
+  /* IBAN / SWIFT */
+}
+.page-wrapper .input-group .input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(14, 165, 233, 0.15);
+}
+.page-wrapper .input-group .input.ltr {
+  direction: ltr;
+  text-align: left;
+}
+.page-wrapper .input-group .input-addon {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 10px;
+  color: var(--muted);
+  border: 1px solid var(--color-border);
+  background: rgba(0, 0, 0, 0.03);
+  border-radius: 10px;
+  white-space: nowrap;
+}
+.page-wrapper .input-group .input-addon--suffix {
+  margin-inline-start: 8px;
+}
+.page-wrapper .input-group select.input {
+  appearance: none;
+  background: #fff;
+}
+.page-wrapper .choices {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 20px; /* مسافة أفقية واضحة بين الخيارات */
+  row-gap: 12px; /* مسافة عند التفاف السطر */
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  /* كل خيار كـ "حبّة" مستقلة تمنع التداخل */
+  /* رجّع المدخلات لشكل المتصفح، ولّونها بالثيم */
+  /* --- شِبّات الحالة (بديل آمن لكلمة badge) --- */
+  /* فضّل ستايلنا على أي إطار عمل يلوّن .badge أحمر */
+  /* إبراز الخيـار المختار (زيادة خفيفة بالوضوح) */
+  /* disabled */
+}
+.page-wrapper .choices li {
+  display: flex;
+  align-items: center;
+}
+.page-wrapper .choices label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 10px;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  background: #fff;
+  cursor: pointer;
+}
+.page-wrapper .choices label > input[type=radio],
+.page-wrapper .choices label > input[type=checkbox] {
+  appearance: auto !important; /* الغِ أي ستايل قديم */
+  -webkit-appearance: auto !important;
+  -moz-appearance: auto !important;
+  position: static !important;
+  inset: auto !important;
+  transform: none !important;
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  vertical-align: middle;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+.page-wrapper .choices .state-chip,
+.page-wrapper .choices .badge {
+  /* دعم التسمية القديمة لمنع الكسر */
+  font-size: 12px;
+  line-height: 1;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  pointer-events: none;
+  margin: 0;
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+.page-wrapper .choices .badge {
+  background: transparent !important;
+  color: inherit !important;
+  border-color: transparent !important;
+}
+.page-wrapper .choices .state-chip--ok,
+.page-wrapper .choices .badge--ok {
+  background: rgba(16, 185, 129, 0.12) !important;
+  color: #059669 !important;
+  border-color: rgba(16, 185, 129, 0.35) !important;
+}
+.page-wrapper .choices .state-chip--danger,
+.page-wrapper .choices .badge--danger {
+  background: rgba(244, 63, 94, 0.12) !important;
+  color: #dc2626 !important;
+  border-color: rgba(244, 63, 94, 0.35) !important;
+}
+.page-wrapper .choices label > input[type=radio]:checked + .state-chip--ok,
+.page-wrapper .choices label > input[type=checkbox]:checked + .state-chip--ok,
+.page-wrapper .choices label > input[type=radio]:checked + .badge--ok,
+.page-wrapper .choices label > input[type=checkbox]:checked + .badge--ok {
+  background: rgba(16, 185, 129, 0.18) !important;
+  color: #047857 !important;
+  border-color: rgba(16, 185, 129, 0.45) !important;
+}
+.page-wrapper .choices label > input[type=radio]:checked + .state-chip--danger,
+.page-wrapper .choices label > input[type=checkbox]:checked + .state-chip--danger,
+.page-wrapper .choices label > input[type=radio]:checked + .badge--danger,
+.page-wrapper .choices label > input[type=checkbox]:checked + .badge--danger {
+  background: rgba(244, 63, 94, 0.18) !important;
+  color: #b91c1c !important;
+  border-color: rgba(244, 63, 94, 0.45) !important;
+}
+.page-wrapper .choices label > input:disabled + .state-chip,
+.page-wrapper .choices label > input:disabled + .badge {
+  opacity: 0.6;
+  filter: grayscale(0.1);
+}
+.page-wrapper .file {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+}
+.page-wrapper .file input[type=file] {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+.page-wrapper .file .file__btn {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  padding: 10px 12px;
+  border: 1px dashed var(--color-border);
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.02);
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+.page-wrapper .file .file__btn:hover {
+  border-color: var(--accent);
+  background: rgba(14, 165, 233, 0.06);
+}
+.page-wrapper .thumb {
+  margin-top: 8px;
+  width: 120px;
+  border-radius: 10px;
+  border: 1px solid var(--color-border);
+}
+.page-wrapper .form-actions {
+  max-inline-size: 460px;
+  margin: 16px auto 0;
+  display: grid;
+  gap: 10px;
+}
+@media (max-width: 1200px) {
+  .page-wrapper .grid.grid--3 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 768px) {
+  .page-wrapper .page__header {
+    grid-template-columns: 1fr;
+  }
+  .page-wrapper .grid.grid--3 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/*# sourceMappingURL=setting-edit.css.map */

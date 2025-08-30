@@ -1,0 +1,303 @@
+.home-page {
+  background-color: var(--background);
+  padding: 20px;
+
+  .dashboard-container {
+    background: #f9f9f9;
+    border-radius: 30px;
+    padding: 30px 40px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+  }
+
+  .section-title {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 30px;
+  }
+
+  .dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 25px;
+  }
+
+  .dashboard-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+    border-radius: 14px;
+    background-color: #f8f9fa;
+    text-decoration: none;
+    color: #222;
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.03);
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-icon {
+      font-size: 30px;
+      margin-bottom: 10px;
+    }
+
+    .card-info {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .card-title {
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .card-count {
+      font-size: 22px;
+      font-weight: bold;
+    }
+  }
+
+  /* ألوان مخصصة لكل قسم */
+  .color-reports {
+    background-color: #eaf4fc;
+    .card-icon {
+      color: #3498db;
+    }
+    .card-count {
+      color: #3498db;
+    }
+  }
+
+  .color-box {
+    background-color: #f0eafc;
+    .card-icon {
+      color: #ba9efa;
+    }
+    .card-count {
+      color: #ba9efa;
+    }
+  }
+
+  .color-provider {
+    background-color: #eaf7fc;
+    .card-icon {
+      color: #42b1d3;
+    }
+    .card-count {
+      color: #42b1d3;
+    }
+  }
+
+  .color-marketer {
+    background-color: #e5f0ff;
+    .card-icon {
+      color: #63a1f8;
+    }
+    .card-count {
+      color: #63a1f8;
+    }
+  }
+
+  .color-Purchases {
+    background-color: #e5fdf4;
+    .card-icon {
+      color: #56f7bc;
+    }
+    .card-count {
+      color: #56f7bc;
+    }
+  }
+
+  .color-purchases-quotations {
+    background-color: #fff6e5;
+    .card-icon {
+      color: #f7bd51;
+    }
+    .card-count {
+      color: #f7bd51;
+    }
+  }
+
+  .color-purchases-payments {
+    background-color: #f9f2fd;
+    .card-icon {
+      color: #bd50fc;
+    }
+    .card-count {
+      color: #bd50fc;
+    }
+  }
+
+  .color-customers {
+    background-color: #fdf1ec;
+    .card-icon {
+      color: #f88453;
+    }
+    .card-count {
+      color: #f88453;
+    }
+  }
+
+  .color-revenues {
+    background-color: #e3f6ff;
+    .card-icon {
+      color: #50bff3;
+    }
+    .card-count {
+      color: #50bff3;
+    }
+  }
+
+  .color-sales-q {
+    background-color: #edf7f6;
+    .card-icon {
+      color: #47f5e3;
+    }
+    .card-count {
+      color: #47f5e3;
+    }
+  }
+
+  .color-sales {
+    background-color: #eefdf2;
+    .card-icon {
+      color: #45f775;
+    }
+    .card-count {
+      color: #45f775;
+    }
+  }
+
+  .color-sales-p {
+    background-color: #faf3e0;
+    .card-icon {
+      color: #f3c23c;
+    }
+    .card-count {
+      color: #f3c23c;
+    }
+  }
+
+  .color-employee {
+    background-color: #f9f9ff;
+    .card-icon {
+      color: #5555fa;
+    }
+    .card-count {
+      color: #5555fa;
+    }
+  }
+
+  .color-category {
+    background-color: #f5f9ec;
+    .card-icon {
+      color: #8ab131;
+    }
+    .card-count {
+      color: #8ab131;
+    }
+  }
+
+  .color-products {
+    background-color: #e4f1ff;
+    .card-icon {
+      color: #4197f3;
+    }
+    .card-count {
+      color: #4197f3;
+    }
+  }
+
+  .color-coupons {
+    background-color: #e6fcf5;
+    .card-icon {
+      color: #289c77;
+    }
+    .card-count {
+      color: #289c77;
+    }
+  }
+
+  .color-restriction {
+    background-color: #f1f5ff;
+    .card-icon {
+      color: #1453f5;
+    }
+    .card-count {
+      color: #1453f5;
+    }
+  }
+
+  .color-term {
+    background-color: #f3fdfc;
+    .card-icon {
+      color: #2c948a;
+    }
+    .card-count {
+      color: #2c948a;
+    }
+  }
+
+  .color-setting {
+    background-color: #f1f1f1;
+    .card-icon {
+      color: #5a5858;
+    }
+    .card-count {
+      color: #5a5858;
+    }
+  }
+
+  .color-privilege {
+    background-color: #ffecec;
+    .card-icon {
+      color: #725151;
+    }
+    .card-count {
+      color: #725151;
+    }
+  }
+
+  .color-historique {
+    background-color: #fcf6e6;
+    .card-icon {
+      color: #d8b043;
+    }
+    .card-count {
+      color: #d8b043;
+    }
+  }
+
+  .color-tools {
+    background-color: #faedfd;
+    .card-icon {
+      color: #87658f;
+    }
+    .card-count {
+      color: #87658f;
+    }
+  }
+
+  .color-expenses {
+    background-color: #fbeff0;
+    .card-icon {
+      color: #e74c3c;
+    }
+    .card-count {
+      color: #e74c3c;
+    }
+  }
+
+  .color-sales {
+    background-color: #e6f4f1;
+    .card-icon {
+      color: #27ae60;
+    }
+    .card-count {
+      color: #27ae60;
+    }
+  }
+}

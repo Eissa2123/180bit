@@ -1,0 +1,152 @@
+/* ===== Toolbar ===== */
+.toolbar {
+  border-radius: 30px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  margin-bottom: 20px;
+}
+
+.toolbar-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 30px;
+  box-shadow: var(--shadow);
+  padding: calc(var(--pad) - 4px) var(--pad);
+}
+
+/* نموذج الطباعة يكون سطر مع الأزرار */
+.toolbar .print-form {
+  display: flex;
+  align-items: stretch;
+  border-radius: 30px;
+  box-shadow: var(--shadow);
+}
+
+/* ===== Panel (الكارت الكبير) ===== */
+.panel {
+  padding: 20px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 30px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+/* ===== Filters Grid ===== */
+/* شبكة 12 عمود مرنة */
+.filters-grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 10px;
+}
+
+/* عناصر الشبكة */
+.fg-item {
+  min-width: 0; /* مهم عشان العناصر ما تطلع برا */
+}
+
+/* سبانات */
+.fg-item.span-12 {
+  grid-column: span 12 / span 12;
+}
+.fg-item.span-9 {
+  grid-column: span 9 / span 9;
+}
+.fg-item.span-6 {
+  grid-column: span 6 / span 6;
+}
+.fg-item.span-4 {
+  grid-column: span 4 / span 4;
+}
+.fg-item.span-3 {
+  grid-column: span 3 / span 3;
+}
+
+/* أي عنصر داخل خانة الفلاتر يتمدد بكامل العرض بدون ما نغيّر ستايل الودجت نفسه */
+.fg-item > * {
+  width: 100%;
+  min-width: 0;
+}
+
+/* صف الأزرار أسفل الفلاتر */
+.actions-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+/* كل زر ياخذ مساحة كويسة بدون ما نفرض ستايل داخلي */
+.actions-row > * {
+  flex: 1 1 220px; /* يتسع ويصغر */
+  min-width: 160px;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 1024px) {
+  .fg-item.span-9,
+  .fg-item.span-6,
+  .fg-item.span-4,
+  .fg-item.span-3 {
+    grid-column: span 12 / span 12;
+  }
+  .toolbar-actions {
+    gap: var(--gap-sm);
+  }
+}
+
+@media (max-width: 640px) {
+  .actions-row > * {
+    flex-basis: 100%;
+    min-width: 0;
+  }
+}
+
+/* ===== Panel Body & Table wrapper ===== */
+.panel-body {
+  padding: 15px;
+  overflow-x: auto;
+}
+
+.pager {
+  list-style: none;
+  display: inline-flex;
+  padding: 0;
+  margin: 8px 0 0;
+  gap: 8px;
+}
+.pager li a,
+.pager li span {
+  display: inline-block;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #fff;
+  text-decoration: none;
+  color: inherit;
+}
+.pager li.current span {
+  background: #f3f4f6;
+}
+.pager li a:hover {
+  background: #f1f5f9;
+}
+
+/* ===== اتجاه RTL/LTR ===== */
+.page-wrapper[dir="rtl"] .toolbar-actions {
+  direction: rtl;
+}
+.page-wrapper[dir="rtl"] .pager {
+  direction: rtl;
+}
+.page-wrapper[dir="rtl"] .table .actions a {
+  margin-inline: 4px;
+}
+
+.page-wrapper[dir="ltr"] .toolbar-actions {
+  direction: ltr;
+}

@@ -1,0 +1,9 @@
+/vendor/
+/system/libs/composer/vendor/
+/tmp/
+/logs/
+/public/uploads/
+/public/ui/cache/
+/public/*.log
+/.env
+/configs/env.local.php

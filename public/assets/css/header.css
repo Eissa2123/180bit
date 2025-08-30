@@ -1,0 +1,243 @@
+@charset "UTF-8";
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 30px;
+  position: relative;
+  z-index: 1000;
+}
+.app-header .header-center,
+.app-header .mobile-header-right {
+  display: none;
+}
+.app-header .header-left {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+.app-header .logo img {
+  height: 50px;
+}
+.app-header .app-name {
+  font-weight: bold;
+  font-size: 20px;
+}
+.app-header .menu-toggle {
+  display: none;
+}
+.app-header .header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.app-header .header-right .profile-pic {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+.dropdown {
+  position: relative;
+}
+.dropdown .dropdown-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.dropdown .user-menu {
+  position: relative;
+}
+.dropdown .user-menu .dropdown-menu {
+  display: none;
+  position: absolute;
+  top: calc(100% + 5px);
+  background: white;
+  min-width: 220px;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  padding: 12px 0;
+  list-style: none;
+  z-index: 9999;
+  inset-inline-end: 0;
+}
+.dropdown .user-menu .dropdown-menu li {
+  padding: 10px 15px;
+  white-space: nowrap;
+}
+.dropdown .user-menu .dropdown-menu li:hover {
+  background: #f1f1f1;
+}
+.dropdown .user-menu.open .dropdown-menu {
+  display: block;
+}
+
+/* Dropdown للغات داخل الهيدر */
+.app-header .lang-select {
+  position: relative;
+}
+
+.app-header .lang-select .dropdown-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border: 1px solid var(--color-border, #e5e7eb);
+  border-radius: 10px;
+  background: #fff;
+  cursor: pointer;
+}
+
+.app-header .lang-select .dropdown-menu {
+  position: absolute;
+  top: 100%;
+  inset-inline-end: 0; /* يتماشى مع RTL/LTR */
+  margin-top: 8px;
+  min-width: 180px;
+  padding: 6px;
+  background: #fff;
+  border: 1px solid var(--color-border, #e5e7eb);
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  display: none; /* الافتراضي مخفي */
+  z-index: 1000; /* فوق الهيدر */
+}
+
+.app-header .dropdown {
+  position: relative;
+}
+
+.app-header .dropdown .dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  inset-inline-end: 0;
+  z-index: 1000;
+}
+
+.app-header .dropdown.open .dropdown-menu {
+  display: block;
+}
+
+.app-header .lang-select .dropdown-menu li {
+  list-style: none;
+}
+
+.app-header .lang-select .dropdown-menu a {
+  display: block;
+  padding: 10px 12px;
+  border-radius: 8px;
+  color: #111827;
+  text-decoration: none;
+}
+
+.app-header .lang-select .dropdown-menu a:hover {
+  background: #f3f4f6;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .app-header {
+    padding: 10px 15px;
+  }
+  .app-name {
+    display: none;
+  }
+  .header-left,
+  .header-right {
+    display: none;
+  }
+  .app-header .menu-toggle {
+    display: block;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+  }
+  .header-center {
+    position: absolute;
+    right: 50%;
+    transform: translateX(-50%);
+  }
+  .mobile-header-right {
+    position: absolute;
+    right: 50%;
+    transform: translateX(-50%);
+  }
+}
+/* Sidebar */
+/* الحالة الافتراضية مخفي */
+.sidebar {
+  position: fixed;
+  top: 0;
+  width: 250px;
+  height: 100%;
+  background: white;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+  z-index: 1100;
+  padding: 20px;
+}
+
+.sidebar-rtl {
+  right: -250px;
+}
+
+.sidebar-ltr {
+  left: -250px;
+}
+
+.sidebar-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.sidebar-profile-pic {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.sidebar-menu {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar-menu li {
+  margin: 15px 0;
+}
+
+.sidebar-menu a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+}
+
+/* Overlay */
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 1090;
+}
+
+.overlay.active {
+  display: block;
+}
+
+.sidebar-rtl.active {
+  right: 0;
+}
+
+.sidebar-ltr.active {
+  left: 0;
+}
+
+/*# sourceMappingURL=header.css.map */

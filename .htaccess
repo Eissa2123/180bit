@@ -1,0 +1,5 @@
+RewriteEngine On
+RewriteRule ^([a-zA-Z0-9\-\_\/]*)$ index.php?url=$1 [L]
+
+php_value upload_max_filesize 32M
+php_value post_max_size 32M

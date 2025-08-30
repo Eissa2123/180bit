@@ -1,0 +1,138 @@
+@charset "UTF-8";
+/* styles/components/_custom-text-field.scss */
+/* الوعاء العام */
+.custom-text-field {
+  display: block; /* فل وِدث */
+  inline-size: 100%;
+  margin-bottom: 8px;
+  /* الليبل */
+  /* الغلاف الداخلي للحقل */
+  /* RTL: اكتفِ بتغيير الاتجاه للغلاف والمنطقية تتكفّل بالباقي */
+  /* الرسالة أسفل الحقل */
+}
+.custom-text-field label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.custom-text-field .custom-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  inline-size: 100%;
+  min-inline-size: 0; /* مهم داخل flex/grids */
+  /* الافتراضيات (تُستبدل عبر $style_vars) */
+  --tf-py: 20px; /* ارتفاع الحقل (padding عمودي) */
+  --tf-fs: 12px; /* حجم الخط */
+  --tf-radius: 10px; /* نصف القطر */
+  --tf-start: 10px; /* padding بداية السطر */
+  --tf-end: 15px; /* padding نهاية السطر */
+  --tf-icon-size: 1rem; /* حجم الأيقونة */
+  --tf-icon-space: 28px; /* مساحة إضافية لو فيه أيقونة */
+  --tf-eye-space: 2.5rem; /* مساحة زر 👁 */
+  --tf-eye-inset: 10px; /* تموضع زر 👁 من الحافة */
+  --tf-icon-color: var(--muted);
+  /* الحقل نفسه */
+  /* الأيقونة (افتراضيًا في بداية السطر = logical start) */
+  /* لو الأيقونة في النهاية (عند تمرير icon-end من الودجت) */
+  /* لو فيه أيقونة في البداية: زد padding من بداية السطر */
+  /* زر إظهار/إخفاء كلمة المرور */
+  /* مساحة لزر 👁 */
+}
+.custom-text-field .custom-input-wrapper input.form-control {
+  inline-size: 100%;
+  flex: 1 1 auto;
+  box-sizing: border-box;
+  padding-block: var(--tf-py);
+  padding-inline-start: var(--tf-start);
+  padding-inline-end: var(--tf-end);
+  border: 1px solid var(--color-border);
+  border-radius: var(--tf-radius);
+  font-size: var(--tf-fs);
+  color: var(--color-main-text, #111827);
+  background: var(--input-bg, #fff);
+  outline: none;
+}
+.custom-text-field .custom-input-wrapper input.form-control:focus {
+  border-color: var(--color-main-text);
+  box-shadow: none;
+  outline: none;
+}
+.custom-text-field .custom-input-wrapper input.form-control:read-only {
+  background: rgba(0, 0, 0, 0.04);
+  cursor: not-allowed;
+}
+.custom-text-field .custom-input-wrapper .input-icon {
+  position: absolute;
+  inset-inline-start: 15px;
+  color: var(--tf-icon-color);
+  font-size: var(--tf-icon-size);
+  line-height: 1;
+  pointer-events: none; /* ما تمنع الكليك داخل الإنبت */
+}
+.custom-text-field .custom-input-wrapper.icon-end .input-icon {
+  inset-inline-start: auto;
+  inset-inline-end: 10px;
+}
+.custom-text-field .custom-input-wrapper.icon-end input.form-control {
+  padding-inline-end: calc(var(--tf-end) + var(--tf-icon-space));
+}
+.custom-text-field .custom-input-wrapper.has-icon input.form-control,
+.custom-text-field .custom-input-wrapper .input-icon + input.form-control {
+  padding-inline-start: calc(var(--tf-start) + var(--tf-icon-space));
+}
+.custom-text-field .custom-input-wrapper .toggle-eye {
+  position: absolute;
+  inset-inline-end: var(--tf-eye-inset);
+  inset-block-start: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--color-main-text);
+  font-size: 1rem;
+  line-height: 1;
+  opacity: 0.6;
+  padding: 0;
+  transition: opacity 0.2s ease;
+}
+.custom-text-field .custom-input-wrapper .toggle-eye:hover {
+  opacity: 1;
+}
+.custom-text-field .custom-input-wrapper.has-eye input.form-control,
+.custom-text-field .custom-input-wrapper input.form-control[type=password] {
+  padding-inline-end: var(--tf-eye-space);
+}
+.custom-text-field.rtl {
+  /* لو الأيقونة موضوعة كبداية، logical-start راح ينقلب تلقائيًا لليمين.
+     ما نعبث بالـ padding لأننا نستخدم inline-start/end أصلاً. */
+}
+.custom-text-field.rtl .custom-input-wrapper {
+  direction: rtl;
+}
+.custom-text-field .error-message {
+  margin-top: 6px;
+  font-size: 12px;
+  color: #ef4444;
+}
+
+/* أحجام جاهزة اختيارية (لو تبغى تغيّر ارتفاع/خط بسرعة) */
+.custom-text-field.is-compact .custom-input-wrapper {
+  --tf-py: 10px;
+  --tf-fs: 13px;
+  --tf-radius: 8px;
+}
+
+.custom-text-field.is-dense .custom-input-wrapper {
+  --tf-py: 8px;
+  --tf-fs: 12px;
+  --tf-radius: 8px;
+}
+
+.custom-text-field.is-lg .custom-input-wrapper {
+  --tf-py: 24px;
+  --tf-fs: 14px;
+  --tf-radius: 12px;
+}
+
+/*# sourceMappingURL=textField.css.map */

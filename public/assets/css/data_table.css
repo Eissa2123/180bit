@@ -1,0 +1,227 @@
+@charset "UTF-8";
+/* === DataTable (compiled CSS) === */
+.dt-wrap {
+  /* كان overflow-x:auto; */
+  overflow-x: visible; /* ✅ لا سكروول على الدِسكْتوب */
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+}
+
+.dt-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  table-layout: auto;
+  /* كان min-width:700px; */
+  min-width: 0; /* ✅ يمنع فرض سكروول */
+}
+
+/* توحيد اللون داخل الجدول */
+.dt-table,
+.dt-table th,
+.dt-table td {
+  color: #111; /* ✅ نص موحّد */
+}
+
+.dt-table a {
+  color: inherit; /* الروابط نفس لون النص */
+  text-decoration: none;
+}
+
+.dt-table a:hover {
+  opacity: 0.8;
+}
+
+/* أي تلوين قديم يتلغى داخل الجدول */
+.dt-table .tel,
+.dt-table .text-success,
+.dt-table .text-danger,
+.dt-table .text-warning,
+.dt-table .text-info {
+  color: inherit !important;
+}
+
+/* ما نلوّن النص كامل لو الصف عليه كلاس حالة */
+.dt-table tbody tr[class] td {
+  color: #111;
+}
+
+.dt-table thead th {
+  position: sticky;
+  top: 0;
+  background: #fff;
+  z-index: 1;
+  font-weight: 700;
+  font-size: 13px;
+  padding: 12px 10px;
+  border-bottom: 1px solid #e5e7eb;
+  white-space: nowrap;
+  text-align: center;
+}
+
+.dt-table tbody td {
+  padding: 10px;
+  border-bottom: 1px solid #f0f2f5;
+  vertical-align: middle;
+  background: #fff;
+}
+
+.dt-table tbody tr:nth-child(odd) td {
+  background: #fafafa;
+}
+
+.dt-table tbody tr:hover td {
+  background: #f5f7fb;
+}
+
+.dt-actions-col {
+  width: 1%;
+  white-space: nowrap;
+}
+
+.dt-actions {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+}
+
+.dt-action {
+  --size: 32px;
+  width: var(--size);
+  height: var(--size);
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #e5e7eb;
+  background: #fff;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, transform 0.1s, opacity 0.15s;
+  text-decoration: none;
+  color: #111; /* ✅ نفس لون النص */
+}
+
+.dt-action:hover {
+  background: #eef2ff;
+  border-color: #c7d2fe;
+  opacity: 0.9;
+}
+
+.dt-action:active {
+  transform: scale(0.98);
+}
+
+.dt-empty {
+  padding: 14px 16px;
+  border: 1px dashed #f1c40f;
+  background: #fffbec;
+  color: #8a6d3b;
+  border-radius: 10px;
+}
+
+/* Badges (الحالة تبقى بألوانها) */
+.label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0.25rem 0.5rem;
+  border-radius: 999px;
+  font-size: 12px;
+  border: 1px solid transparent;
+}
+
+.label-default {
+  background: #f3f4f6;
+  color: #374151;
+  border-color: #e5e7eb;
+}
+
+.label-success {
+  background: #e7f6ec;
+  color: #227a44;
+  border-color: #bde5c8;
+}
+
+.label-info {
+  background: #e8f1fe;
+  color: #1d4ed8;
+  border-color: #c7d2fe;
+}
+
+.label-warning {
+  background: #fff4db;
+  color: #a16207;
+  border-color: #fde68a;
+}
+
+.label-danger {
+  background: #fee2e2;
+  color: #b91c1c;
+  border-color: #fecaca;
+}
+
+.dt-pager .pager {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.dt-pager .pager li a {
+  padding: 6px 14px;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  background: #fff;
+}
+
+.dt-pager .pager li.disabled a {
+  pointer-events: none;
+  opacity: 0.45;
+}
+
+/* موبايل */
+@media (max-width: 640px) {
+  .dt-wrap {
+    overflow-x: auto; /* ✅ الموبايل فقط */
+  }
+  .dt-table {
+    min-width: 600px; /* يحافظ على شكل الأعمدة في الكارد */
+  }
+  .dt-table thead {
+    display: none;
+  }
+  .dt-table tbody tr {
+    display: block;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.05);
+    margin: 10px 0;
+    overflow: hidden;
+    background: #fff;
+  }
+  .dt-table tbody td {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 8px;
+    border: 0;
+    padding: 10px 12px;
+  }
+  .dt-table tbody td::before {
+    content: attr(data-th);
+    color: #6b7280;
+    font-weight: 600;
+    font-size: 12px;
+    align-self: center;
+    text-align: right;
+  }
+  .dt-table tbody td:first-child {
+    grid-template-columns: 1fr;
+  }
+  .dt-actions {
+    justify-content: flex-start;
+  }
+}
+
+/*# sourceMappingURL=data_table.css.map */

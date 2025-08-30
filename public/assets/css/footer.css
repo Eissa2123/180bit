@@ -1,0 +1,87 @@
+.site-footer {
+  padding: 40px 60px;
+  font-family: "Segoe UI", sans-serif;
+  color: #1f2937;
+}
+.site-footer .footer-top {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.site-footer .footer-top .footer-left {
+  display: flex;
+  flex-direction: column;
+}
+.site-footer .footer-top .footer-left .footer-logo {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+.site-footer .footer-top .footer-left .footer-logo img {
+  max-height: 70px;
+  height: auto;
+}
+.site-footer .footer-top .footer-left .footer-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.site-footer .footer-top .footer-left .footer-nav a {
+  text-decoration: none;
+  color: #374151;
+  font-size: 14px;
+}
+.site-footer .footer-top .footer-left .footer-nav a:hover {
+  color: #000;
+}
+.site-footer .footer-top .footer-right {
+  max-width: 300px;
+}
+.site-footer .footer-top .footer-right p {
+  margin-bottom: 10px;
+  font-weight: 600;
+  font-size: 14px;
+}
+.site-footer .footer-top .footer-right .newsletter-form {
+  display: flex;
+}
+.site-footer .footer-top .footer-right .newsletter-form input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px 0 0 4px;
+}
+.site-footer .footer-top .footer-right .newsletter-form button {
+  padding: 10px 16px;
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+}
+.site-footer .footer-top .footer-right .newsletter-form button:hover {
+  background-color: #1d4ed8;
+}
+.site-footer .footer-bottom {
+  border-top: 1px solid #e5e7eb;
+  margin-top: 40px;
+  padding-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  font-size: 13px;
+}
+.site-footer .footer-bottom .footer-links {
+  display: flex;
+  gap: 20px;
+}
+.site-footer .footer-bottom .footer-links a {
+  color: #6b7280;
+  text-decoration: none;
+}
+.site-footer .footer-bottom .footer-links a:hover {
+  color: #000;
+}
+
+/*# sourceMappingURL=footer.css.map */

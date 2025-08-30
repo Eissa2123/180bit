@@ -1,0 +1,273 @@
+@charset "UTF-8";
+.home-page {
+  background-color: var(--background);
+  padding: 20px;
+  /* ألوان مخصصة لكل قسم */
+}
+.home-page .dashboard-container {
+  background: #f9f9f9;
+  border-radius: 30px;
+  padding: 30px 40px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+}
+.home-page .section-title {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 30px;
+}
+.home-page .dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 25px;
+}
+.home-page .dashboard-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+  border-radius: 14px;
+  background-color: #f8f9fa;
+  text-decoration: none;
+  color: #222;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.03);
+}
+.home-page .dashboard-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+.home-page .dashboard-card .card-icon {
+  font-size: 30px;
+  margin-bottom: 10px;
+}
+.home-page .dashboard-card .card-info {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.home-page .dashboard-card .card-title {
+  font-size: 16px;
+  font-weight: 600;
+}
+.home-page .dashboard-card .card-count {
+  font-size: 22px;
+  font-weight: bold;
+}
+.home-page .color-reports {
+  background-color: #eaf4fc;
+}
+.home-page .color-reports .card-icon {
+  color: #3498db;
+}
+.home-page .color-reports .card-count {
+  color: #3498db;
+}
+.home-page .color-box {
+  background-color: #f0eafc;
+}
+.home-page .color-box .card-icon {
+  color: #ba9efa;
+}
+.home-page .color-box .card-count {
+  color: #ba9efa;
+}
+.home-page .color-provider {
+  background-color: #eaf7fc;
+}
+.home-page .color-provider .card-icon {
+  color: #42b1d3;
+}
+.home-page .color-provider .card-count {
+  color: #42b1d3;
+}
+.home-page .color-marketer {
+  background-color: #e5f0ff;
+}
+.home-page .color-marketer .card-icon {
+  color: #63a1f8;
+}
+.home-page .color-marketer .card-count {
+  color: #63a1f8;
+}
+.home-page .color-Purchases {
+  background-color: #e5fdf4;
+}
+.home-page .color-Purchases .card-icon {
+  color: #56f7bc;
+}
+.home-page .color-Purchases .card-count {
+  color: #56f7bc;
+}
+.home-page .color-purchases-quotations {
+  background-color: #fff6e5;
+}
+.home-page .color-purchases-quotations .card-icon {
+  color: #f7bd51;
+}
+.home-page .color-purchases-quotations .card-count {
+  color: #f7bd51;
+}
+.home-page .color-purchases-payments {
+  background-color: #f9f2fd;
+}
+.home-page .color-purchases-payments .card-icon {
+  color: #bd50fc;
+}
+.home-page .color-purchases-payments .card-count {
+  color: #bd50fc;
+}
+.home-page .color-customers {
+  background-color: #fdf1ec;
+}
+.home-page .color-customers .card-icon {
+  color: #f88453;
+}
+.home-page .color-customers .card-count {
+  color: #f88453;
+}
+.home-page .color-revenues {
+  background-color: #e3f6ff;
+}
+.home-page .color-revenues .card-icon {
+  color: #50bff3;
+}
+.home-page .color-revenues .card-count {
+  color: #50bff3;
+}
+.home-page .color-sales-q {
+  background-color: #edf7f6;
+}
+.home-page .color-sales-q .card-icon {
+  color: #47f5e3;
+}
+.home-page .color-sales-q .card-count {
+  color: #47f5e3;
+}
+.home-page .color-sales {
+  background-color: #eefdf2;
+}
+.home-page .color-sales .card-icon {
+  color: #45f775;
+}
+.home-page .color-sales .card-count {
+  color: #45f775;
+}
+.home-page .color-sales-p {
+  background-color: #faf3e0;
+}
+.home-page .color-sales-p .card-icon {
+  color: #f3c23c;
+}
+.home-page .color-sales-p .card-count {
+  color: #f3c23c;
+}
+.home-page .color-employee {
+  background-color: #f9f9ff;
+}
+.home-page .color-employee .card-icon {
+  color: #5555fa;
+}
+.home-page .color-employee .card-count {
+  color: #5555fa;
+}
+.home-page .color-category {
+  background-color: #f5f9ec;
+}
+.home-page .color-category .card-icon {
+  color: #8ab131;
+}
+.home-page .color-category .card-count {
+  color: #8ab131;
+}
+.home-page .color-products {
+  background-color: #e4f1ff;
+}
+.home-page .color-products .card-icon {
+  color: #4197f3;
+}
+.home-page .color-products .card-count {
+  color: #4197f3;
+}
+.home-page .color-coupons {
+  background-color: #e6fcf5;
+}
+.home-page .color-coupons .card-icon {
+  color: #289c77;
+}
+.home-page .color-coupons .card-count {
+  color: #289c77;
+}
+.home-page .color-restriction {
+  background-color: #f1f5ff;
+}
+.home-page .color-restriction .card-icon {
+  color: #1453f5;
+}
+.home-page .color-restriction .card-count {
+  color: #1453f5;
+}
+.home-page .color-term {
+  background-color: #f3fdfc;
+}
+.home-page .color-term .card-icon {
+  color: #2c948a;
+}
+.home-page .color-term .card-count {
+  color: #2c948a;
+}
+.home-page .color-setting {
+  background-color: #f1f1f1;
+}
+.home-page .color-setting .card-icon {
+  color: #5a5858;
+}
+.home-page .color-setting .card-count {
+  color: #5a5858;
+}
+.home-page .color-privilege {
+  background-color: #ffecec;
+}
+.home-page .color-privilege .card-icon {
+  color: #725151;
+}
+.home-page .color-privilege .card-count {
+  color: #725151;
+}
+.home-page .color-historique {
+  background-color: #fcf6e6;
+}
+.home-page .color-historique .card-icon {
+  color: #d8b043;
+}
+.home-page .color-historique .card-count {
+  color: #d8b043;
+}
+.home-page .color-tools {
+  background-color: #faedfd;
+}
+.home-page .color-tools .card-icon {
+  color: #87658f;
+}
+.home-page .color-tools .card-count {
+  color: #87658f;
+}
+.home-page .color-expenses {
+  background-color: #fbeff0;
+}
+.home-page .color-expenses .card-icon {
+  color: #e74c3c;
+}
+.home-page .color-expenses .card-count {
+  color: #e74c3c;
+}
+.home-page .color-sales {
+  background-color: #e6f4f1;
+}
+.home-page .color-sales .card-icon {
+  color: #27ae60;
+}
+.home-page .color-sales .card-count {
+  color: #27ae60;
+}
+
+/*# sourceMappingURL=home.css.map */

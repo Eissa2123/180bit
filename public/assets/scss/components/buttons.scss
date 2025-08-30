@@ -1,0 +1,152 @@
+/* ====== Reusable Button Base ====== */
+.btn {
+  --btn-bg: var(--color-header-footer, #fff);
+  --btn-fg: var(--color-main-text, #111);
+  --btn-border: var(--color-border, #e0e0e0);
+  --btn-hover-bg: rgba(0, 0, 0, 0.04);
+  --btn-px: 14px;
+  --btn-py: 9px;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  border: 1px solid var(--btn-border);
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  padding: var(--btn-py) var(--btn-px);
+  line-height: 1.1;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.15s, border-color 0.15s, color 0.15s,
+    box-shadow 0.15s;
+}
+.btn:hover {
+  background: var(--btn-hover-bg);
+}
+
+/* أحجام */
+.btn.btn-xs {
+  --btn-px: 10px;
+  --btn-py: 6px;
+  font-size: 12px;
+}
+.btn.btn-sm {
+  --btn-px: 12px;
+  --btn-py: 8px;
+  font-size: 13px;
+}
+.btn.btn-md {
+  --btn-px: 14px;
+  --btn-py: 9px;
+  font-size: 14px;
+}
+.btn.btn-lg {
+  --btn-px: 18px;
+  --btn-py: 12px;
+  font-size: 16px;
+}
+
+/* تدوير */
+.btn.rounded-none {
+  border-radius: 0;
+}
+.btn.rounded-sm {
+  border-radius: 6px;
+}
+.btn.rounded-md {
+  border-radius: 10px;
+}
+.btn.rounded-lg {
+  border-radius: 14px;
+}
+.btn.rounded-full {
+  border-radius: 999px;
+}
+
+/* عرض كامل */
+.btn-block {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+/* Variants */
+.btn-primary {
+  --btn-bg: #1d4ed8;
+  --btn-fg: #fff;
+  --btn-border: #1d4ed8;
+  --btn-hover-bg: #1a3fb0;
+}
+.btn-outline {
+  --btn-bg: transparent;
+  --btn-fg: var(--color-main-text, #111);
+  --btn-border: var(--color-border, #d1d5db);
+  --btn-hover-bg: rgba(0, 0, 0, 0.04);
+}
+.btn-ghost {
+  --btn-bg: transparent;
+  --btn-fg: var(--color-main-text, #111);
+  --btn-border: transparent;
+  --btn-hover-bg: rgba(0, 0, 0, 0.06);
+}
+.btn-danger {
+  --btn-bg: #ef4444;
+  --btn-fg: #fff;
+  --btn-border: #ef4444;
+  --btn-hover-bg: #cf3636;
+}
+.btn-success {
+  --btn-bg: #16a34a;
+  --btn-fg: #fff;
+  --btn-border: #16a34a;
+  --btn-hover-bg: #138a40;
+}
+.btn-warning {
+  --btn-bg: #f59e0b;
+  --btn-fg: #111;
+  --btn-border: #f59e0b;
+  --btn-hover-bg: #e3920a;
+}
+
+/* دعم اسم متغيّر بديل --btn-text (لو استخدمته) */
+.btn {
+  color: var(--btn-text, var(--btn-fg));
+}
+
+/* الأساس */
+.btn,
+a.btn,
+a.btn:visited {
+  color: var(--btn-text);
+  background: var(--btn-bg);
+  text-decoration: none;
+}
+
+/* هوفر فقط */
+.btn:hover {
+  background: var(--btn-hover-bg, var(--btn-bg));
+  color: var(--btn-hover-text, var(--btn-text));
+}
+
+/* أكتيف */
+.btn:active {
+  transform: translateY(1px);
+  background: var(--btn-active-bg, var(--btn-hover-bg, var(--btn-bg)));
+}
+
+/* فوكس: لا تغيّر الألوان، بس خليه يبين بحلقة تركيز */
+.btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--btn-focus-ring, rgba(99, 102, 241, 0.35));
+  color: var(--btn-text);
+  background: var(--btn-bg);
+}
+
+/* للكيبورد فقط */
+.btn:focus-visible {
+  box-shadow: 0 0 0 3px var(--btn-focus-ring, rgba(99, 102, 241, 0.35));
+}
+.btn:focus:not(:focus-visible) {
+  box-shadow: none;
+}

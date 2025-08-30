@@ -1,0 +1,73 @@
+:root {
+  --color-bg: #f1f1f1;
+  --color-header-footer: #ffffff;
+  --color-main-text: #1e1e1e;
+  --color-accent: #00b894;
+  --color-border: #e0e0e0;
+  --muted: #6b7280;
+  --line: #e5e7eb;
+  --card: #f8f8f8;
+  --radius: 14px;
+  --shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+  --shadow-sm: 0 6px 14px rgba(0, 0, 0, 0.05);
+  --gap: 18px;
+  --gap-sm: 12px;
+  --pad: 18px;
+  --pad-lg: 22px;
+  --fw-600: 600;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--color-bg);
+  color: var(--color-main-text);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+/* Layout */
+.page-wrapper {
+  padding: 0px 25px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-main-text);
+}
+
+.page-header {
+  display: flex;
+  background-color: #f9f9f9;
+  border-radius: 30px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+}
+.page-header .breadcrumbs {
+  font-size: 10px;
+  color: #666;
+}
+.page-header .breadcrumbs a {
+  color: #3498db;
+  text-decoration: none;
+}
+.page-header .breadcrumbs a:hover {
+  text-decoration: underline;
+}
+.page-header .breadcrumbs span {
+  margin: 0 0.5rem;
+}
+.page-header .breadcrumbs strong {
+  font-weight: bold;
+}
+
+/*# sourceMappingURL=base.css.map */

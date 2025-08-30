@@ -1,0 +1,132 @@
+/* مهم: شيل المارجن الافتراضي للـ body */
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* الحاوية = طول الشاشة دائماً، ومنع أي سكروول خارجي */
+.login-page {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas: "visual card"; /* الافتراضي */
+  align-items: stretch;
+  block-size: 100svh; /* ثبّت الارتفاع على الشاشة */
+  overflow: hidden; /* ما في سكروول للصفحة نفسها */
+  background: var(--color-bg);
+  align-items: center;
+}
+
+.login-page[dir="rtl"] {
+  grid-template-areas: "card visual";
+}
+
+.login-visual {
+  grid-area: visual;
+  block-size: 100%;
+  overflow: hidden;
+}
+.login-visual img {
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+  box-shadow: none;
+  box-shadow: none;
+}
+
+/* الكارد يملأ نص الشاشة، والمحتوى داخله له عرض أقصى */
+.login-card {
+  grid-area: card;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  block-size: 100%;
+  padding: 34px 32px;
+  overflow: hidden;
+}
+
+.login-card > * {
+  inline-size: 100%;
+}
+
+.logo {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  width: 100%;
+  gap: 5px;
+  padding-bottom: 50px;
+
+  .login-logo img {
+    width: 100px;
+  }
+
+  .login-construction img {
+    position: relative;
+    height: 50px;
+  }
+}
+
+form {
+  padding: 20px;
+  background-color: var(--card);
+  border-radius: 30px;
+  border: solid 1px var(--color-border);
+  box-shadow: var(--shadow);
+  flex: 1 1 auto;
+  min-block-size: 0;
+  overflow: auto;
+
+  .tittle {
+    margin: 0 0 40px;
+  }
+  .login-title {
+    margin: 0;
+  }
+  .login-title2 {
+    margin: 8px 0 0;
+    color: var(--muted);
+  }
+
+  .action-but {
+    margin-top: 20px;
+    padding-bottom: 20px;
+  }
+}
+
+.fields {
+  display: grid;
+  gap: 10px;
+}
+
+.login-card > .footer-bottom {
+  margin-top: auto; 
+  padding-top: 12px;
+  color: var(--muted);
+  font-size: 12px;
+  text-align: center;
+  inline-size: 100%;
+}
+/* موبايل: اخفِ الصورة واسمح للصفحة تتمدد طبيعي */
+@media (max-width: 768px) {
+  .login-page {
+    grid-template-columns: 1fr;
+    grid-template-areas: "card";
+    block-size: auto;
+    min-block-size: 100svh;
+    overflow: visible;
+  }
+  .login-visual {
+    display: none;
+  }
+  .login-card {
+    inline-size: 100%;
+    max-block-size: none;
+    overflow: visible;
+  }
+
+  form {
+    padding: 20px;
+  }
+}
