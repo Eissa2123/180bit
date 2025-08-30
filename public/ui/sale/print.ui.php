@@ -1,11 +1,8 @@
 <?php
-// [1] حدد جذر المشروع بالنسبة لهذا الملف (هذا الملف داخل system/views → نطلع مستويين)
-$projectRoot = realpath(__DIR__ . ''); // عدّلها لو مسار الملف مختلف
+// ─[1] شعار الشركة كـ Data URI لضمان ظهوره في PDF ──────────────────────────────
+$projectRoot = realpath(__DIR__ . '');
+$logoPath    = $projectRoot . '/public/assets/themes/default/images/goleenkit.png';
 
-// [2] ابني مسار الشعار على القرص
-$logoPath = $projectRoot . '/public/assets/themes/default/images/goleenkit.png';
-
-// [3] لو ما لقاه، جرّب تحويل IMGS إلى مسار ملف عبر DOCUMENT_ROOT
 if (!is_file($logoPath)) {
     $p = parse_url(IMGS . 'goleenkit.png', PHP_URL_PATH);
     if ($p) {
@@ -14,269 +11,427 @@ if (!is_file($logoPath)) {
     }
 }
 
-// [4] حوّل الصورة إلى Data URI (Base64) أو خلّيها فاضية لو ما لقاها
 $logoSrc = '';
 if (is_file($logoPath)) {
-    $mime = function_exists('mime_content_type') ? mime_content_type($logoPath) : 'image/png';
+    $mime    = function_exists('mime_content_type') ? mime_content_type($logoPath) : 'image/png';
     $logoSrc = 'data:' . $mime . ';base64,' . base64_encode(file_get_contents($logoPath));
 }
 ?>
 
+<!-- ╭─────────────────────────────── CSS المخصص لـ mPDF ────────────────────────────────╮ -->
+<style>
+    body {
+        font-family: 'DejaVu Sans', sans-serif;
+        font-size: 11px;
+        color: #222;
+    }
+
+    .rtl {
+        direction: rtl;
+        text-align: right;
+    }
+
+    .ltr {
+        direction: ltr;
+        text-align: left;
+    }
+
+    .text-center {
+        text-align: center;
+    }
+
+    .text-right {
+        text-align: right;
+    }
+
+    .text-left {
+        text-align: left;
+    }
+
+    .fw-bold {
+        font-weight: bold;
+    }
+
+    .muted {
+        color: #666;
+    }
+
+    .small {
+        font-size: 10px;
+    }
+
+    .xsmall {
+        font-size: 9px;
+    }
+
+    .mt-5 {
+        margin-top: 5px;
+    }
+
+    .mt-10 {
+        margin-top: 10px;
+    }
+
+    .mb-5 {
+        margin-bottom: 5px;
+    }
+
+    .mb-10 {
+        margin-bottom: 10px;
+    }
+
+    .py-4 {
+        padding-top: 4px;
+        padding-bottom: 4px;
+    }
+
+    .px-6 {
+        padding-left: 6px;
+        padding-right: 6px;
+    }
+
+    .table {
+        width: 90%;
+        margin: 0 auto;
+        border-collapse: collapse;
+    }
+
+    .table.narrow {
+        width: 90%;
+    }
+
+    .table th,
+    .table td {
+        border: 1px solid #ddd;
+        padding: 6px 8px;
+        vertical-align: middle;
+    }
+
+    .table th {
+        background: #f4f6f8;
+        font-weight: bold;
+    }
+
+    .table.no-border th,
+    .table.no-border td {
+        border: none;
+    }
+
+    .table.clean td {
+        border-color: #fff;
+    }
+
+    /* لمسافات بيضاء بين صفوف العناصر */
+    .items thead th {
+        font-size: 10px;
+    }
+
+    .items td,
+    .items th {
+        font-size: 10px;
+    }
+
+    .money {
+        direction: ltr;
+        text-align: right;
+    }
+
+    .badge {
+        background: #111;
+        color: #fff;
+        border-radius: 3px;
+        padding: 2px 6px;
+        font-size: 10px;
+        display: inline-block;
+    }
+
+    .hr {
+        width: 90%;
+        height: 1px;
+        background: #000;
+        margin: 10px auto;
+    }
+
+    .totals {
+        width: 90%;
+        margin: 0 auto;
+        border-collapse: collapse;
+    }
+
+    .totals td,
+    .totals th {
+        padding: 6px 8px;
+    }
+
+    .totals .card {
+        border: 1px solid #ddd;
+        background: #fff;
+    }
+
+    .totals .label {
+        width: 40%;
+    }
+
+    .totals .value {
+        width: 60%;
+        text-align: right;
+    }
+
+    /* مربّع التواقيع */
+    .sign-line {
+        border-bottom: 1px solid #ccc;
+        height: 22px;
+    }
+
+    .sign-box {
+        width: 90%;
+        margin: 0 auto;
+    }
+
+    /* تصحيح ثنائي اللغة داخل نفس الصف */
+    .split-3 {
+        width: 90%;
+        margin: 0 auto;
+        border-collapse: collapse;
+    }
+
+    .split-3 td {
+        border: none;
+        padding: 2px 0;
+    }
+
+    .split-3 .col-ar,
+    .split-3 .col-en {
+        width: 35%;
+    }
+
+    .split-3 .col-mid {
+        width: 30%;
+        text-align: center;
+    }
+
+    /* ترويسة الفاتورة */
+    .header-title {
+        font-size: 14px;
+        letter-spacing: .3px;
+    }
+
+    .brand {
+        font-size: 12px;
+    }
+</style>
+<!-- ╰──────────────────────────────────────────────────────────────────────────────╯ -->
 
 <page>
 
-    <div class="page-body">
-        <table class="no-bordered" style="width:90%;height:60px;">
-            <tbody>
-                <tr style="height:60%;">
-                    <td class="text-right" style="width:35%;height:30px;">
-                        <br />
-                        الطقم الذهبي للزي الموحد و التصميم
-                        <br />
-                        والطباعة والملابس الرياضية
-                    </td>
-                    <td class="text-center" style="width:30%;height:40px;" rowspan="4">
-                        <br />
-                        <?php if ($logoSrc): ?>
-                            <img src="<?= $logoSrc ?>" style="width:150px;" alt="logo">
-                        <?php endif; ?>
+    <!-- ───────────── Header ───────────── -->
+    <table class="table no-border narrow">
+        <tr>
+            <td class="text-right rtl brand" style="width:35%">
+                الطقم الذهبي للزي الموحد والتصميم<br />
+                والطباعة والملابس الرياضية
+            </td>
+            <td class="text-center" style="width:30%">
+                <?php if ($logoSrc): ?>
+                    <img src="<?= $logoSrc ?>" style="width:150px;" alt="logo">
+                <?php endif; ?>
+                <div class="header-title mt-5">
+                    <span class="badge">فاتورة / Invoice</span>
+                </div>
+            </td>
+            <td class="text-left ltr brand" style="width:35%">
+                Golden Kit for Uniform Clothes,<br />
+                Designing, Printing & Sportswear
+            </td>
+        </tr>
+        <tr>
+            <td class="text-right rtl small">
+                س.ت: <?= V(COMPANY, 'RC') ?><br />
+                <?= V(COMPANY, 'Email1') ?><br />
+                الرقم الضريبي: <?= V(COMPANY, 'TaxNumber') ?><br />
+            </td>
+            <td></td>
+            <td class="text-left ltr small">
+                C.R.: <?= V(COMPANY, 'RC') ?><br />
+                <?= V(COMPANY, 'Email1') ?><br />
+                VAT No: <?= V(COMPANY, 'TaxNumber') ?><br />
+            </td>
+        </tr>
+    </table>
 
+    <div class="hr"></div>
 
-                    </td>
-                    <td class="text-left" style="width:35%;height:40px;">
-                        <br />
-                        Golden Kit For Uniform Cloths,
-                        <br />
-                        Designing, Printing and Sport Cloths
-                    </td>
-                </tr>
-                <tr>
-                    <td class="text-right" style="width:20%;height:10px;">
-                        س. ت. <?= V(COMPANY, 'RC') ?><br />
-                        <?= V(COMPANY, 'Email1') ?><br />
-                        الرقم الضريبي <?= V(COMPANY, 'TaxNumber') ?><br />
-                    </td>
-                    <td class="text-left" style="width:30%;height:10px;">
-                        C.R. <?= V(COMPANY, 'RC') ?><br />
-                        <?= V(COMPANY, 'Email1') ?><br />
-                        VAT No <?= V(COMPANY, 'TaxNumber') ?><br />
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+    <!-- ───────────── Invoice meta (AR | value | EN) ───────────── -->
+    <table class="split-3">
+        <tr>
+            <td class="col-ar text-right rtl fw-bold">تاريخ الفاتورة</td>
+            <td class="col-mid fw-bold"><?= V($Cells, 'AT') ?></td>
+            <td class="col-en text-left ltr fw-bold">Bill Date</td>
+        </tr>
+        <tr>
+            <td class="col-ar text-right rtl fw-bold">رقم الفاتورة</td>
+            <td class="col-mid fw-bold"><?= V($Cells, 'Code') ?></td>
+            <td class="col-en text-left ltr fw-bold">Bill Code</td>
+        </tr>
+        <tr>
+            <td class="col-ar text-right rtl">رقم العميل</td>
+            <td class="col-mid"><?= V($Cells, 'Customer', 'Code') ?></td>
+            <td class="col-en text-left ltr">Customer Code</td>
+        </tr>
+        <tr>
+            <td class="col-ar text-right rtl">اسم العميل</td>
+            <td class="col-mid"><?= V($Cells, 'Customer', 'Companyname') ?></td>
+            <td class="col-en text-left ltr">Customer Name</td>
+        </tr>
+        <tr>
+            <td class="col-ar text-right rtl">الرقم الضريبي للعميل</td>
+            <td class="col-mid"><?= V($Cells, 'Customer', 'Taxnumber') ?></td>
+            <td class="col-en text-left ltr">Customer VAT</td>
+        </tr>
+    </table>
 
-        <hr style="width:90%;margin:auto;margin-top:10px;margin-bottom:10px;color:#000;height:1px;" />
+    <br />
 
-        <table style="border:none;">
-            <thead>
-                <tr>
-                    <th class="text-right" style="width:30%;border:none;">تاريخ الفاتورة</th>
-                    <th class="text-center" style="width:40%;border:none;"><?= V($Cells, 'AT') ?></th>
-                    <th class="text-left" style="width:30%;border:none;">Bill Date</th>
-                </tr>
-                <tr>
-                    <th class="text-right" style="width:30%;border:none;">رقم الفاتورة</th>
-                    <th class="text-center" style="width:40%;border:none;"><?= V($Cells, 'Code') ?></th>
-                    <th class="text-left" style="width:30%;border:none;">Bill Code</th>
-                </tr>
-                <tr>
-                    <th class="text-right" style="width:30%;border:none;">رقم العميل</th>
-                    <th class="text-center" style="width:40%;border:none;"><?= V($Cells, 'Customer', 'Code') ?></th>
-                    <th class="text-left" style="width:30%;border:none;">Customer Code</th>
-                </tr>
-                <tr>
-                    <th class="text-right" style="width:30%;border:none;">إسم العميل</th>
-                    <th class="text-center" style="width:40%;border:none;"><?= V($Cells, 'Customer', 'Companyname') ?></th>
-                    <th class="text-left" style="width:30%;border:none;">Customer Name</th>
-                </tr>
-                <tr>
-                    <th class="text-right" style="width:30%;border:none;">الرقم الضريبي للعميل</th>
-                    <th class="text-center" style="width:40%;border:none;"><?= V($Cells, 'Customer', 'Taxnumber') ?></th>
-                    <th class="text-left" style="width:30%;border:none;">Customer VAT</th>
-                </tr>
-            </thead>
-        </table>
-
-        <br />
-
-        <table style="font-size:11px;">
-            <thead>
-                <tr>
-                    <th class="text-center" style="width:10%;font-size:10px;">
-                        الرمز
-                        <br /><br />
-                        Code
-                    </th>
-                    <th class="text-center" style="width:25%;font-size:10px;">
-                        الصنف
-                        Item
-                    </th>
-                    <th class="text-center" style="font-size:10px;">
-                        البيان
-
-                        Item Description
-                    </th>
-                    <th class="text-center" style="width:6%;font-size:10px;">
-                        الكمية
-                        <br /><br />
-                        QTY
-                    </th>
-                    <th class="text-center" style="width:8%;font-size:10px;">
-                        سعر الوحدة
-                        <br /><br />
-                        Unit Price
-                    </th>
-                    <th class="text-center" style="width:8%;font-size:10px;">
-                        إجمالي السعر
-                        <br /><br />
-                        Total Price
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="text-center" style="border-bottom:1px solid #fff;">&nbsp;</td>
-                    <td class="text-center" style="border-bottom:1px solid #fff;">&nbsp;</td>
-                    <td class="text-center" style="border-bottom:1px solid #fff;">&nbsp;</td>
-                    <td class="text-center" style="border-bottom:1px solid #fff;">&nbsp;</td>
-                    <td class="text-center" style="border-bottom:1px solid #fff;">&nbsp;</td>
-                    <td class="text-center" style="border-bottom:1px solid #fff;">&nbsp;</td>
-                </tr>
-                <?php foreach ($Cells['Products'] as $cell) { ?>
+    <!-- ───────────── Items table ───────────── -->
+    <table class="table items" autosize="1">
+        <thead>
+            <tr>
+                <th class="text-center" style="width:10%">
+                    الرمز<br /><span class="small">Code</span>
+                </th>
+                <th class="text-center" style="width:22%">
+                    الصنف<br /><span class="small">Item</span>
+                </th>
+                <th class="text-center">
+                    البيان<br /><span class="small">Description</span>
+                </th>
+                <th class="text-center" style="width:6%">
+                    الكمية<br /><span class="small">QTY</span>
+                </th>
+                <th class="text-center" style="width:10%">
+                    سعر الوحدة<br /><span class="small">Unit Price</span>
+                </th>
+                <th class="text-center" style="width:12%">
+                    إجمالي السعر<br /><span class="small">Total</span>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php if (!empty($Cells['Products'])): ?>
+                <?php foreach ($Cells['Products'] as $cell): ?>
                     <tr>
-                        <td class="text-center" style="border-bottom:1px solid #fff;"><?= V($cell, 'Product', 'Code') ?></td>
-                        <td class="text-right" style="border-bottom:1px solid #fff;"><?= V($cell, 'Product', 'Name') ?></td>
-                        <td class="text-right" style="border-bottom:1px solid #fff;"><?= V($cell, 'Description') ?></td>
-                        <td class="text-center" style="border-bottom:1px solid #fff;"><?= V($cell, 'Quantity') ?></td>
-                        <td class="text-right" style="border-bottom:1px solid #fff;"><?= V($cell, 'Price') ?></td>
-                        <td class="text-right" style="border-bottom:1px solid #fff;"><?= V($cell, 'HT') ?></td>
+                        <td class="text-center"><?= V($cell, 'Product', 'Code') ?></td>
+                        <td class="text-right rtl"><?= V($cell, 'Product', 'Name') ?></td>
+                        <td class="text-right rtl"><?= V($cell, 'Description') ?></td>
+                        <td class="text-center"><?= V($cell, 'Quantity') ?></td>
+                        <td class="money"><?= V($cell, 'Price') ?></td>
+                        <td class="money"><?= V($cell, 'HT') ?></td>
                     </tr>
-                <?php } ?>
+                <?php endforeach; ?>
+            <?php else: ?>
                 <tr>
-                    <td class="text-center">&nbsp;</td>
-                    <td class="text-center">&nbsp;</td>
-                    <td class="text-center">&nbsp;</td>
-                    <td class="text-center">&nbsp;</td>
-                    <td class="text-center">&nbsp;</td>
-                    <td class="text-center">&nbsp;</td>
+                    <td colspan="6" class="text-center muted">لا توجد أصناف</td>
                 </tr>
-            </tbody>
-        </table>
+            <?php endif; ?>
+        </tbody>
+    </table>
 
-        <br />
+    <br />
 
-        <table>
-            <tbody>
-                <tr>
-                    <th class="text-center" rowspan="6" style="width:50%;background-color:while;color:#000;border-top:none;border-right:none;border-bottom:none;">
-                        <barcode code="<?= V($Cells, 'TLV') ?>" size="1" type="QR" error="M" class="barcode" disableborder="1" />
-                    </th>
-                </tr>
-                <tr>
-                    <th class="text-center" colspan="2" style="background-color:while;color:#000">المجموع الكلي</th>
-                    <th class="text-right" style="background-color:while;color:#000;"><?= V($Cells, 'HT') ?></th>
-                </tr>
-                <tr>
-                    <th class="text-right">الضريبة VAT</th>
-                    <th class="text-right ltr"><?= V($Cells, 'TVA') ?> %</th>
-                    <th class="text-right"><?= V($Cells, 'Tax') ?></th>
-                </tr>
-                <tr>
-                    <th class="text-right">الكوبون Cobon</th>
-                    <th class="text-right ltr"><?= V($Cells, 'Cobon', 'Ratio') ?> %</th>
-                    <th class="text-right"><?= V($Cells, 'Gift') ?></th>
-                </tr>
-                <tr>
-                    <th class="text-right">المدفوع Payed</th>
-                    <th class="text-center ltr"><?= V($Cells, 'Method', 'Name' . LNG) ?></th>
-                    <th class="text-right"><?= V($Cells, 'Paids') ?></th>
-                </tr>
-                <tr>
-                    <th class="text-center" colspan="2" style="background-color:while;color:#000">المبلغ المستحق Due Amount</th>
-                    <th class="text-right" style="background-color:while;color:#000;font-size:18px;">
-                        SAR <?= V($Cells, 'TTC') ?>
-                    </th>
-                </tr>
-                <tr>
-                    <td colspan="3">
-                        المبلغ المستحق بالحروف
-                        :
-                        <br />
-                        <span style="font-weight:bold;">......</span>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+    <!-- ───────────── Totals + QR ───────────── -->
+    <table class="totals">
+        <tr>
+            <td style="width:50%; vertical-align:top;">
+                <!-- QR Code -->
+                <div class="text-center card" style="padding:10px;">
+                    <barcode code="<?= V($Cells, 'TLV') ?>" size="1.2" type="QR" error="M" class="barcode" disableborder="1" />
+                    <div class="xsmall muted mt-5">فاتورة إلكترونية — TLV QR</div>
+                </div>
+            </td>
+            <td style="width:50%; vertical-align:top;">
+                <table class="table no-border card" style="width:100%;">
+                    <tr>
+                        <td class="label text-right rtl fw-bold">المجموع قبل الضريبة</td>
+                        <td class="value money"><?= V($Cells, 'HT') ?></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right rtl">الضريبة VAT (<?= V($Cells, 'TVA') ?> %)</td>
+                        <td class="value money"><?= V($Cells, 'Tax') ?></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right rtl">الكوبون Cobon (<?= V($Cells, 'Cobon', 'Ratio') ?> %)</td>
+                        <td class="value money"><?= V($Cells, 'Gift') ?></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right rtl">المدفوع (<?= V($Cells, 'Method', 'Name' . LNG) ?>)</td>
+                        <td class="value money"><?= V($Cells, 'Paids') ?></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right rtl fw-bold">المبلغ المستحق / Due</td>
+                        <td class="value money fw-bold">SAR <?= V($Cells, 'TTC') ?></td>
+                    </tr>
+                </table>
+                <div class="small mt-10">
+                    <span class="fw-bold">المبلغ بالحروف:</span>
+                    <span>......</span>
+                </div>
+            </td>
+        </tr>
+    </table>
 
-        <hr style="width:90%;margin:auto;margin-top:10px;margin-bottom:10px;color:#000;height:1px;" />
+    <div class="hr"></div>
 
-        <table>
-            <tbody>
-                <tr>
-                    <td style="border:none;width:25%;" class="text-right">إسم الحساب</td>
-                    <td style="border:none;" class="text-center"><?= V(COMPANY, 'RIB') ?></td>
-                    <td style="border:none;width:25%;" class="text-left">Account Name</td>
-                </tr>
-                <tr>
-                    <td style="border:none;width:25%;" class="text-right">إسم البنك</td>
-                    <td style="border:none;" class="text-center"><?= V(COMPANY, 'Bankname') ?></td>
-                    <td style="border:none;width:25%;" class="text-left">Bank Name</td>
-                </tr>
-            </tbody>
-        </table>
+    <!-- ───────────── Bank info ───────────── -->
+    <table class="table no-border narrow">
+        <tr>
+            <td class="text-right rtl" style="width:25%;">اسم الحساب</td>
+            <td class="text-center"><?= V(COMPANY, 'RIB') ?></td>
+            <td class="text-left ltr" style="width:25%;">Account Name</td>
+        </tr>
+        <tr>
+            <td class="text-right rtl">اسم البنك</td>
+            <td class="text-center"><?= V(COMPANY, 'Bankname') ?></td>
+            <td class="text-left ltr">Bank Name</td>
+        </tr>
+    </table>
 
-        <br />
-        <br />
+    <br /><br />
 
-        <table>
-            <tbody>
-                <tr>
-                    <td style="border:none;" class="text-right">إسم المستلم</td>
-                    <td style="border:none;" class="text-left">Receiver Name</td>
-                    <td style="border:none;" class="text-right">إسم البائع</td>
-                    <td style="border:none;" class="text-left">Seller Name</td>
-                </tr>
-                <tr>
-                    <td style="border:none;font-size:9px;color:#ccc;" class="text-center" colspan="2">
-                        ........................................................................
-                    </td>
-                    <td style="border:none;font-size:9px;color:#ccc;" class="text-center" colspan="2">
-                        ........................................................................
-                    </td>
-                </tr>
-                <tr>
-                    <td style="border:none;" class="text-right">توقيع المستلم</td>
-                    <td style="border:none;" class="text-left">Receiver Sign</td>
-                    <td style="border:none;" class="text-right">توقيع البائع</td>
-                    <td style="border:none;" class="text-left">Seller Sign</td>
-                </tr>
-                <tr>
-                    <td style="border:none;font-size:9px;color:#ccc;" class="text-center" colspan="2">
-                        ........................................................................
-                    </td>
-                    <td style="border:none;font-size:9px;color:#ccc;" class="text-center" colspan="2">
-                        ........................................................................
-                    </td>
-                </tr>
-                <tr>
-                    <td style="border:none;" class="text-right">التاريخ</td>
-                    <td style="border:none;font-size:9px;color:#ccc;" class="text-center" colspan="2">
-                        ........................................................................
-                    </td>
-                    <td style="border:none;" class="text-left">Date</td>
-                </tr>
-            </tbody>
-        </table>
+    <!-- ───────────── Signatures ───────────── -->
+    <table class="sign-box">
+        <tr>
+            <td class="text-right rtl" style="width:25%;">اسم المستلم</td>
+            <td style="width:25%;">
+                <div class="sign-line"></div>
+            </td>
+            <td class="text-right rtl" style="width:25%;">اسم البائع</td>
+            <td style="width:25%;">
+                <div class="sign-line"></div>
+            </td>
+        </tr>
+        <tr>
+            <td class="text-right rtl">توقيع المستلم</td>
+            <td>
+                <div class="sign-line"></div>
+            </td>
+            <td class="text-right rtl">توقيع البائع</td>
+            <td>
+                <div class="sign-line"></div>
+            </td>
+        </tr>
+        <tr>
+            <td class="text-right rtl">التاريخ</td>
+            <td colspan="2">
+                <div class="sign-line"></div>
+            </td>
+            <td class="text-left ltr">Date</td>
+        </tr>
+    </table>
 
-    </div>
-
-    <div class="page-footer text-center" style="font-size:9px;">
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        Jeddah, Sudia Arabia. Faisalyah dist. Front Of N2 Mall Gate 6 - Mob/0555680650 6 - ج/ 055568065
+    <!-- ───────────── Footer ───────────── -->
+    <div class="page-footer text-center xsmall">
+        <br /><br /><br /><br /><br />
+        Jeddah, Saudi Arabia — Faisaliyah Dist., in front of N2 Mall Gate 6 — Mob: 0555680650
     </div>
 
 </page>
