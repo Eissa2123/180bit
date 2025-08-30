@@ -1,0 +1,59 @@
+name: Deploy to Staging
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Upload files to server (exclude runtime stuff)
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          port: ${{ secrets.SSH_PORT }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: |
+            ./
+          target: ${{ secrets.DEPLOY_PATH }}
+          overwrite: true
+          strip_components: 0
+          rm: false
+          exclude: |
+            .git*
+            node_modules
+            vendor
+            system/libs/composer/vendor
+            tmp
+            logs
+            public/uploads
+            public/ui/cache
+            public/*.log
+            configs/env.local.php
+            configs/env.server.php
+            .env
+
+      - name: Post-deploy (composer + mpdf cache)
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          port: ${{ secrets.SSH_PORT }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            set -e
+            cd ${{ secrets.DEPLOY_PATH }}/system/libs/composer
+            if command -v composer >/dev/null 2>&1; then
+              composer install --no-dev --prefer-dist --no-progress --no-interaction --optimize-autoloader
+            else
+              php ~/composer.phar install --no-dev --prefer-dist --no-progress --no-interaction --optimize-autoloader
+            fi
+            # mPDF cache dirs
+            mkdir -p ${{ secrets.DEPLOY_PATH }}/tmp/mpdf/ttfontdata
+            chmod -R 755 ${{ secrets.DEPLOY_PATH }}/tmp/mpdf
