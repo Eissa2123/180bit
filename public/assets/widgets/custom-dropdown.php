@@ -18,10 +18,21 @@ if (!function_exists('renderCustomDropdown')) {
         $displayField  = $params['displayField'] ?? 'display';
         $bindFields    = $params['bindFields'] ?? [];
 
+        $hiddenKey = $params['hiddenKey'] ?? null;
+        if (!$hiddenKey) {
+            // لو الاسم مثل Products[__INDEX__][ID] نقتبس "ID"
+            if (preg_match('/\[([^\[\]]+)\]\s*$/', $name, $m)) {
+                $hiddenKey = $m[1];
+            }
+        }
+
+
         $placeholder     = $translate['placeholder']     ?? 'اختر';
         $nSelectedText   = $translate['nSelected']       ?? 'تم تحديد %s عناصر';
         $allSelectedText = $translate['allSelected']     ?? 'تم تحديد الكل';
         $selectAllText   = $translate['selectAll']       ?? 'تحديد الكل';
+
+
 
         // encode bindFields كـ JSON ومررها إلى data-config
         $configJson = htmlspecialchars(json_encode([
@@ -63,7 +74,14 @@ if (!function_exists('renderCustomDropdown')) {
                     <input type="hidden" name="<?= $name ?>[]" value="<?= $val ?>">
                 <?php endforeach; ?>
             <?php else: ?>
-                <input type="hidden" name="<?= $name ?>" value="<?= $selected ?>">
+                <input
+                    type="hidden"
+                    data-role="value"
+                    <?php if (!empty($hiddenKey)): ?>
+                    data-key="<?= htmlspecialchars($hiddenKey) ?>"
+                    <?php endif; ?>
+                    name="<?= $name ?>"
+                    value="<?= $selected ?>">
             <?php endif; ?>
 
             <div class="dropdown-menu">
@@ -115,6 +133,7 @@ if (!function_exists('renderCustomDropdown')) {
         const placeholder = container.dataset.placeholder || 'اختر';
         const value = option.dataset.value;
 
+
         // ✅ قراءة الإعدادات المرنة من data-config
         const config = JSON.parse(container.dataset.config || '{}');
         const displayField = config.displayField || 'display';
@@ -158,7 +177,19 @@ if (!function_exists('renderCustomDropdown')) {
 
         } else {
             const hiddenInput = container.querySelector("input[type='hidden']");
-            if (hiddenInput) hiddenInput.value = value;
+            if (hiddenInput) {
+                hiddenInput.value = value;
+                // ✅ مهم: خلّي الجدول/الحاسبة تسمع بالتغيير فوراً
+                hiddenInput.dispatchEvent(new Event('change', {
+                    bubbles: true
+                }));
+                container.dispatchEvent(new CustomEvent('cd:change', {
+                    detail: {
+                        value: value
+                    }
+                }));
+            }
+
 
             selectedTextSpan.innerText = displayText || placeholder;
 

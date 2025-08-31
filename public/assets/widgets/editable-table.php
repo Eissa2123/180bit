@@ -374,9 +374,13 @@ if (!function_exists('renderEditableTable')) {
             echo '<td data-th="' . htmlspecialchars($labelText) . '">';
 
             if ($type === 'dropdown') {
-                $inputName = (!$isTemplate && !$noPost) ? ($tableName . '[' . $rowIndex . '][' . $key . ']') : null;
+                // لا نعطي name للـ template؛ خله فاضي عشان EditableTable يعين الاسم بالأندكس
+                $inputName = (!$isTemplate && !$noPost) ? ($tableName . '[' . $rowIndex . '][' . $key . ']') : '';
+
+                // مرّر hiddenKey = اسم العمود (مثلاً ID)
                 renderCustomDropdown([
-                    'name'         => $inputName ?: '___TEMPLATE___',
+                    'name'         => $inputName,
+                    'hiddenKey'    => $key, // <<< مهم جداً
                     'options'      => $col['dropdownOptions'] ?? [],
                     'selected'     => $val,
                     'labelField'   => $col['labelField'] ?? 'label',

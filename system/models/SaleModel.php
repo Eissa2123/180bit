@@ -1074,6 +1074,7 @@ class SaleModel extends Model
 
    public function insert($in)
    {
+
       $send = array();
       $in['Products'] = $in['Products'] ?? [];
 

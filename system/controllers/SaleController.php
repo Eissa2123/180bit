@@ -594,6 +594,8 @@ class SaleController extends Controller
          // Validate with Core using the small-keys version
          $SaleCore->LoadForm(['POSTS' => $forCore]);
          $send['Errors'] = $SaleCore->Check(Core::FADD);
+         error_log('[DEBUG] CHECK_ERRORS=' . json_encode($send['Errors']));
+
          $DBG('CHECK_ERRORS', $send['Errors'] ?? null);
          if (!empty($send['LPosts']['Products'][0])) {
             $DBG('LPOSTS_ROW0', $send['LPosts']['Products'][0]);
@@ -608,8 +610,52 @@ class SaleController extends Controller
                unset($send['LPosts']['Products'][$i]['Tax']); // avoid unknown column SLD_Tax
             }
 
+            // === SUMMARY قبل الإدراج ===
+            try {
+               $rows = isset($send['LPosts']['Products']) && is_array($send['LPosts']['Products'])
+                  ? $send['LPosts']['Products'] : [];
+               $bad  = [];
+               foreach ($rows as $i => $r) {
+                  $id    = (int)($r['ID'] ?? 0);
+                  $qty   = (float)($r['Quantity'] ?? 0);
+                  $price = (float)($r['Price'] ?? 0);
+                  if ($id <= 0 || $qty <= 0 || !is_numeric($r['Price'])) {
+                     $bad[] = [
+                        'i'     => $i,
+                        'id'    => $id,
+                        'qty'   => $qty,
+                        'price' => $price,
+                        'row'   => $r,
+                     ];
+                  }
+               }
+               error_log('[DEBUG] BEFORE_INSERT count=' . count($rows)
+                  . ' ids=' . json_encode(array_column($rows, 'ID'))
+                  . ' bad_rows=' . count($bad));
+               if ($bad) {
+                  error_log('[DEBUG] BAD_ROWS_DETAIL=' . json_encode($bad, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
+               }
+
+               // معلومات عامة مفيدة
+               error_log('[DEBUG] META Customer=' . var_export($send['LPosts']['Customer'] ?? null, true)
+                  . ' TVA=' . var_export($send['LPosts']['TVA'] ?? null, true)
+                  . ' Cobon=' . var_export($send['LPosts']['Cobon'] ?? null, true)
+                  . ' Paid=' . var_export($send['LPosts']['Paid'] ?? null, true)
+                  . ' Rest=' . var_export($send['LPosts']['Rest'] ?? null, true));
+
+               if (!empty($rows)) {
+                  error_log('[DEBUG] ROW0=' . json_encode($rows[0], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
+               }
+               if (!empty($rows[1])) {
+                  error_log('[DEBUG] ROW1=' . json_encode($rows[1], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
+               }
+            } catch (\Throwable $e) {
+               error_log('[DEBUG] SUMMARIZE_ERR=' . $e->getMessage());
+            }
+
             $DBG('PHASE', 'calling Model->insert');
             $res = $this->SaleModel->insert($send['LPosts']);
+
             $DBG('INSERT_SUCCESS', $res['Success'] ?? null);
             $DBG('INSERT_ERRORS',  $res['Errors'] ?? null);
             $DBG('INSERT_CELLS_ID', $res['Cells']['ID'] ?? null);
