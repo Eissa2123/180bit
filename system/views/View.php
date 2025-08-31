@@ -53,17 +53,18 @@ class View
 		}
 
 		$options = [
-			'orientation' => $orientation,
-			'mode' => 'utf-8',
-			'format' => $format,
-			'margin_left' => 0,
-			'margin_right' => 0,
-			'margin_top' => 0,
-			'margin_bottom' => 10,
-			'margin_header' => 0,
-			'margin_footer' => 0,
-			'default_font_size' => 10
+			'orientation'       => $orientation,
+			'mode'              => 'utf-8',
+			'format'            => $format,
+			'margin_left'       => 0,   // ← بدل 0
+			'margin_right'      => 0,   // ← بدل 0
+			'margin_top'        => 5,   // ← بدل 0
+			'margin_bottom'     => 5,   // اختياري
+			'margin_header'     => 0,
+			'margin_footer'     => 0,
+			'default_font_size' => 10,
 		];
+
 
 		$mpdf  = new \Mpdf\Mpdf($options);
 
@@ -94,12 +95,15 @@ class View
 		//$mpdf->SetProtection(array(), '1111', '0000');
 
 		$css1 = file_get_contents(WASSETS . 'themes/default/css/colors.css');
-		$css2 = file_get_contents(WASSETS . 'themes/default/css/print.css');
+		$css2 = file_get_contents(WASSETS . 'themes/default/css/invoice.css');
 
 		$mpdf->WriteHTML($css1, 1);
 		$mpdf->WriteHTML($css2, 1);
 
 		$mpdf->WriteHTML($body, 2);
+
+
+
 
 		//preg_match_all('/<page (.*?)>(.*?)<\/page>/s', $body, $matchs);
 
@@ -115,6 +119,23 @@ class View
 					}
 				}
 			}*/
+
+		$footerHtml = '
+<table class="inv-footer no-border" dir="ltr" style="width:92%;margin:0 auto;border-top:1px solid #e5e7eb;padding-top:6px;font-size:8.5pt;color:#333;">
+  <tr>
+    <td class="rtl" style="width:50%;text-align:right;line-height:1.25;">
+      ' . V(COMPANY, 'AddressAR') . ' — ' . V(COMPANY, 'CityAR') . ' — ' . V(COMPANY, 'CountryAR') . '<br/>
+      ' . (V(COMPANY, 'Phone1') ? 'جوال: ' . V(COMPANY, 'Phone1') . ' — ' : '') . 'بريد: ' . V(COMPANY, 'Email1') . '
+    </td>
+    <td class="ltr" style="width:50%;text-align:left;line-height:1.25;">
+      ' . V(COMPANY, 'AddressEN') . ' — ' . V(COMPANY, 'CityEN') . ' — ' . V(COMPANY, 'CountryEN') . '<br/>
+      ' . (V(COMPANY, 'Phone1') ? 'Phone: ' . V(COMPANY, 'Phone1') . ' — ' : '') . 'Email: ' . V(COMPANY, 'Email1') . '
+    </td>
+  </tr>
+</table>';
+
+		$mpdf->SetHTMLFooter($footerHtml);
+
 
 
 		$mpdf->Output($filename, 'I');

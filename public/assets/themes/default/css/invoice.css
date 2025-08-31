@@ -1,0 +1,410 @@
+/* ===== Invoice CSS (mPDF-safe) ===== */
+
+/* أساسيات */
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: DejaVu Sans, sans-serif;
+    font-size: 9.5pt;
+    color: #222;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.rtl {
+    direction: rtl;
+}
+
+.ltr {
+    direction: ltr;
+}
+
+.muted {
+    color: #555;
+}
+
+.w25 {
+    width: 25%
+}
+
+.w30 {
+    width: 30%
+}
+
+.w40 {
+    width: 40%
+}
+
+/* الجداول العامة */
+table {
+    width: 92%;
+    margin: 0 auto;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+.no-border,
+.no-border td,
+.no-border th {
+    border: none !important;
+}
+
+th,
+td {
+    vertical-align: top;
+    padding: 6px 8px;
+}
+
+/* ───── الهيدر ───── */
+/* سطر QR يسار + الشعار يمين */
+table.hdr-top {
+    width: 92% !important;
+    margin: 10px auto 6px;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+table.hdr-top td {
+    padding: 0;
+    vertical-align: top;
+}
+
+.logo {
+    width: 160px !important;
+    height: auto;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.barcode {
+    line-height: 1;
+    vertical-align: top;
+}
+
+/* سطر معلومات الشركة: إنجليزي يسار | عربي يمين */
+table.coinfo {
+    width: 92% !important;
+    margin: 4px auto 8px;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.coinfo .co-name {
+    font-weight: 700;
+    margin: 0 0 3px 0;
+    /* مسافة موحدة أسفل العنوان */
+    line-height: 1.35;
+}
+
+.coinfo .co-line {
+    margin: 1px 0;
+    /* كل سطر نفس المسافة */
+    line-height: 1.35;
+    color: #333;
+    font-size: 8.6pt;
+}
+
+/* فاصل */
+.hr {
+    width: 92%;
+    height: 1px;
+    background: #000;
+    margin: 8px auto;
+}
+
+/* ───── ميتاداتا الفاتورة ───── */
+.meta th {
+    font-weight: 700;
+}
+
+/* العناوين بولد */
+.meta td {
+    font-weight: 400;
+}
+
+.meta th,
+.meta td {
+    padding: 4px 8px;
+}
+
+/* قللنا المسافة بين الصفوف */
+
+
+
+
+
+
+
+/* === Items table: row separators only === */
+.items-stacked {
+    border: none !important;
+}
+
+.items-stacked thead th {
+    color: #111 !important;
+    font-weight: 1000 !important;
+    font-size: 9pt;
+    text-align: center;
+    padding: 7px 8px;
+    border: none !important;
+    border-top: 1px solid #000000 !important;
+    border-bottom: 1px solid #000000 !important;
+}
+
+.items-stacked tbody td {
+    border: none !important;
+    /* لا حدود جانبية */
+    border-bottom: 1px solid #000000 !important;
+    /* خط فاصل لكل صف */
+    padding: 8px 10px;
+}
+
+.items-stacked tbody tr:last-child td {
+    border-bottom: none !important;
+    /* آخر صف بلا خط إذا تبغى */
+}
+
+/* تهيئة سطر الاسم + الرمز */
+.stk-top {
+    line-height: 1.35;
+}
+
+.stk-name {
+    font-weight: 700;
+}
+
+/* عنوان الصنف */
+.stk-sep {
+    margin: 0 6px;
+}
+
+/* فاصل صغير (•) بين الاسم والرمز */
+.stk-code {
+    direction: ltr;
+    /* الرمز يقرأ LTR مثل 21-0011 */
+    display: inline-block;
+    font-size: 8.6pt;
+    color: #444;
+}
+
+/* وصف الصنف بلون رمادي أفتح */
+.stk-desc {
+    font-size: 8.6pt;
+    color: #6b7280;
+    /* رمادي فاتح */
+    margin-top: 2px;
+    line-height: 1.4;
+}
+
+
+
+
+
+
+
+
+/* السطر العلوي داخل خلية الوصف */
+.stk-top {
+    line-height: 1.35;
+}
+
+.stk-name {
+    font-weight: 700;
+}
+
+.stk-code {
+    font-size: 8.5pt;
+    margin-inline-start: 6px;
+}
+
+/* السطر السفلي (الوصف) */
+.stk-desc {
+    font-size: 8.5pt;
+    margin-top: 2px;
+    line-height: 1.4;
+}
+
+
+/* ───── الملاحظات + المجاميع ───── */
+/* اجعل جدول الأصناف والمجاميع لازقين ببعض */
+.items {
+    margin-bottom: 0 !important;
+}
+
+.totals {
+    margin-top: 6px !important;
+}
+
+/* أو 0 لو تبغى الالتصاق تماماً */
+
+/* صندوق المجاميع: بدون إطار، فواصل سفلية فقط لكل سطر */
+.sum-box {
+    width: 100%;
+    border: none !important;
+    border-collapse: collapse;
+}
+
+.sum-box td {
+    border: none !important;
+    border-bottom: 1px solid #e5e7eb !important;
+    /* خط تحت كل سطر */
+    padding: 8px 10px;
+}
+
+.sum-box tr:last-child td {
+    border-bottom: none !important;
+    /* آخر سطر بدون خط (اختياري) */
+}
+
+.sum-box .lbl {
+    font-weight: 700;
+    font-size: 9pt;
+}
+
+/* العناوين بولد */
+.sum-box .val {
+    font-size: 9pt;
+}
+
+/* عنوان “شروط الدفع” وخط الكتابة المنقّط */
+.notes-head {
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.notes-line {
+    height: 14px;
+    border-bottom: 1px dashed #9ca3af;
+    /* خط منقّط */
+    margin-bottom: 6px;
+}
+
+/* قسم البنك بشكل احترافي بسيط (فواصل سفلية فقط) */
+/* ——— تضبيط مسافات معلومات الشركة والميتا ——— */
+.coinfo .co-name {
+    margin: 0 0 2px 0;
+    line-height: 1.25;
+    font-weight: 700;
+}
+
+.coinfo .co-line {
+    margin: 0;
+    line-height: 1.25;
+}
+
+.meta th,
+.meta td {
+    padding: 5px 8px;
+}
+
+/* صفوف الميتا أضيق */
+
+/* ——— صندوق المجاميع ملاصق للجدول ——— */
+.items {
+    margin-bottom: 0 !important;
+}
+
+.totals {
+    margin-top: 6px !important;
+}
+
+/* ——— بنك (عربي | قيمة | إنجليزي) بفواصل سفلية فقط ——— */
+.bank3 {
+    width: 92%;
+    margin: 10px auto 0;
+    border-collapse: collapse;
+}
+
+.bank3 thead th {
+    text-align: center;
+    font-weight: 800;
+    padding: 4px 6px;
+    border-bottom: 2px solid #111;
+}
+
+.bank3 td {
+    padding: 5px 8px;
+    border-bottom: 1px solid #e5e7eb;
+    line-height: 1.25;
+}
+
+.bank3 tr:last-child td {
+    border-bottom: 0;
+}
+
+.bank-lbl {
+    font-weight: 700;
+}
+
+/* ——— توقيعين احترافيين ——— */
+.sign-wrap {
+    width: 92%;
+    margin: 12px auto 0;
+    border-collapse: collapse;
+}
+
+.sign-wrap td {
+    width: 50%;
+    padding: 0 6px;
+    vertical-align: top;
+    border: none;
+}
+
+.sig-box {
+    width: 100%;
+    border: 1px solid #e5e7eb;
+    border-radius: 2px;
+}
+
+.sig-title {
+    text-align: center;
+    font-weight: 700;
+    padding: 6px 8px;
+    border-bottom: 1px solid #e5e7eb;
+    background: #fafafa;
+}
+
+.sig-pad {
+    height: 48px;
+}
+
+/* مساحة التوقيع */
+.sig-meta td {
+    font-size: 8pt;
+    color: #666;
+    padding: 4px 8px;
+}
+
+
+/* footer used by mPDF */
+.inv-footer {
+    width: 92%;
+    margin: 0 auto;
+    font-size: 8.5pt;
+    color: #333;
+    border-top: 1px solid #e5e7eb;
+    padding-top: 6px;
+}
+
+.inv-footer td {
+    padding: 3px 6px;
+    line-height: 1.25;
+}

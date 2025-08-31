@@ -690,11 +690,48 @@ function Adapter($value, $lenght = CNF_LEN)
 }
 function loadimage($image)
 {
-    $data = base64_encode(file_get_contents($image));
-    //$src = 'data: '.mime_content_type($image).';base64,'.$data;
-    $src = 'data: ;base64,' . $data;
-    return $src;
+    // data URI جاهزة؟ رجّعها
+    if (strpos($image, 'data:') === 0) return $image;
+
+    // نمط: db:<id> => اسحب من القاعدة
+    if (preg_match('/^db:(\d+)$/', (string)$image, $m)) {
+        $id = (int)$m[1];
+        $pdo = $GLOBALS['PDO']; // تأكد اتصالك
+        $stmt = $pdo->prepare('SELECT mime_type, data FROM attachments WHERE id = ?');
+        $stmt->execute([$id]);
+        $row = $stmt->fetch();
+        if ($row && !empty($row['data'])) {
+            $mime = $row['mime_type'] ?: 'image/png';
+            return 'data:' . $mime . ';base64,' . base64_encode($row['data']);
+        }
+        return ''; // ما لقى
+    }
+
+    // غير كذا: اعتبره مسار/رابط واقرأ من القرص أولاً ثم URL
+    $url  = $image;
+    $path = rtrim($_SERVER['DOCUMENT_ROOT'], '/\\') . parse_url($url, PHP_URL_PATH);
+    if (is_file($path)) {
+        $data = @file_get_contents($path);
+        $mime = function_exists('mime_content_type') ? mime_content_type($path) : 'image/png';
+        return 'data:' . $mime . ';base64,' . base64_encode($data);
+    }
+    // fallback هادئ
+    $data = @file_get_contents($url);
+    if ($data !== false) {
+        $mime = 'image/png';
+        if (isset($http_response_header)) {
+            foreach ($http_response_header as $h) {
+                if (stripos($h, 'Content-Type:') === 0) {
+                    $mime = trim(substr($h, 13)) ?: $mime;
+                    break;
+                }
+            }
+        }
+        return 'data:' . $mime . ';base64,' . base64_encode($data);
+    }
+    return '';
 }
+
 
 function Has($action, $item, $role)
 {

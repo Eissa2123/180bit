@@ -217,7 +217,8 @@
 					</div>
 				</div>
 
-				<?php /*
+				<?php 
+				/*
 				<hr />
 
 				<div class="row">
